@@ -32,7 +32,7 @@ detach & attach: running docker container in background/foreground
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
 
 Example: `docker run redis:4.0`
-Port mapping: -p [EXT PORT][INT PORT]
+- Port mapping: -p [EXT PORT][INT PORT]
 - Volume mapping: store data inside a container in host
 
     `docker run -v [EXT PATH]:[INT PATH] [IMAGE]`
@@ -43,6 +43,9 @@ Port mapping: -p [EXT PORT][INT PORT]
 
 - `docker inspect [CONTAINER ID/NAME]`: more container detail in JSON format
 - `docker log [CONTAINER ID/NAME]`: container logs
+- Environment variable
+
+
 # Creating Own Images with Dockerfiles
 1. Write a docker file executing all the steps for setting up the dev environment
 2. Build the docker image: `docker build -t [NAME:TAG] [CONTEXT PATH]`
@@ -65,14 +68,23 @@ ENTRYPOINT ["sleep"]
 CMD ["5"] # default parameter that can be overridden
 ```
 
-# Default Networks: bridge, none, host
+# Docker Networks
+Three default networks: bridge, none, host
 
+Example: `docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql`
 
 # Docker Storage
-
+- Docker builds image faster by reusing existing layers that don't change
+- An image is shared by all the containers using it
+- The data in a container layer is destroyed once the container is destroyed
+Volume: create persistent data that an container can store & mount
 
 # Docker Compose
+Configuration of running multiple containers with YAML files
 
+Setting up
+1. Specify the container names and images in the .yml file
+2. Run `docker-compose up`
 
 # Container Orchestration: Docker Swarm
 - Configuration of running multiple containers with YAML files
