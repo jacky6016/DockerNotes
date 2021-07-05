@@ -32,18 +32,16 @@ detach & attach: running docker container in background/foreground
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
 
 Example: `docker run redis:4.0`
-- Port mapping: -p [EXT PORT][INT PORT]
-- Volume mapping: store data inside a container in host
+- Port mapping: `-p [EXT PORT][INT PORT]`
+- Volume mapping: `-v [EXT PATH]:[INT PATH]`
 
-    `docker run -v [EXT PATH]:[INT PATH] [IMAGE]`
+    Store data inside a container in host. The data will be preserved even after the container is destroyed.
+    
+    Example: `docker run -v /opt/datadir:/var/lib/mysql mysql`
 
-    `docker run -v /opt/datadir:/var/lib/mysql mysql`
-
-    - The data will be preserved even after the container is destroyed
-
-- `docker inspect [CONTAINER ID/NAME]`: more container detail in JSON format
-- `docker log [CONTAINER ID/NAME]`: container logs
-- Environment variable
+- More container detail in JSON format: `docker inspect [CONTAINER ID/NAME]`
+- Container logs: `docker log [CONTAINER ID/NAME]`: 
+- Setting Environment variables: `-e VAR_NAME=VALUE`
 
 
 # Creating Own Images with Dockerfiles
@@ -73,12 +71,6 @@ Three default networks: bridge, none, host
 
 Example: `docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql`
 
-# Docker Storage
-- Docker builds image faster by reusing existing layers that don't change
-- An image is shared by all the containers using it
-- The data in a container layer is destroyed once the container is destroyed
-Volume: create persistent data that an container can store & mount
-
 # Docker Compose
 Configuration of running multiple containers with YAML files
 
@@ -87,4 +79,6 @@ Setting up
 2. Run `docker-compose up`
 
 # Container Orchestration: Docker Swarm
-- Configuration of running multiple containers with YAML files
+- Used for automatic load balancing and avoiding host failure on multiple servers.
+- Popular container orchestration services: Docker Swarm, Kubernetes, MESOS
+- Example: `docker service create --replicas=100 nodejs`
