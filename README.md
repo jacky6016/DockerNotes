@@ -48,9 +48,31 @@ Port mapping: -p [EXT PORT][INT PORT]
 2. Build the docker image: `docker build -t [NAME:TAG] [CONTEXT PATH]`
 3. Push the image to the Docker Hub: `docker push [IMAGE NAME]`
 
-# Specifying the program to execute and parameters
+# Specifying the program to execute and parameters for Dockerfile
+Both `ENTRYPOINT` and `CMD` give you a way to identify which executable should be run when a container is started from your image
+
+`CMD`:
+- has two formats (1) `CMD COMMAND PARAM1 PARAM2 ...` (2) `CMD ["COMMAND", "PARAM", ...]`
+- The command and parameters can be overridden with `docker run`
+
+`ENTRYPOINT`:
+- parameters can be appended with `docker run`
+
+Combining `CMD` and `ENTRYPOINT`
+```
+FROM Ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"] # default parameter that can be overridden
+```
 
 # Default Networks: bridge, none, host
+
+
 # Docker Storage
+
+
 # Docker Compose
+
+
 # Container Orchestration: Docker Swarm
+- Configuration of running multiple containers with YAML files
